@@ -1,0 +1,25 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+# PHP - http://php.net/
+[*.php]
+indent_style = tab
+indent_size = 4
+
+# NEON - https://ne-on.org/
+[{*.neon,*.neon.dist}]
+indent_style = tab
+indent_size = 4
+
+# CommonMark - https://commonmark.org/
+# GitHub Flavored Markdown Spec - https://github.github.com/gfm/
+[*.md]
+trim_trailing_whitespace = false

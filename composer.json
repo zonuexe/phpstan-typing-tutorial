@@ -1,0 +1,12 @@
+{
+    "name": "zonuexe/phpstan-typing-tutorial",
+    "description": "Tutorial on typing with PHPStan",
+    "license": "0BSD",
+    "type": "project",
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
