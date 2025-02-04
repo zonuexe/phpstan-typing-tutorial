@@ -23,10 +23,16 @@
 チュートリアルを読み進めながら、同じディレクトリがあるファイルを編集してください。
 
 > [!TIP]
-> エディタ画面上から編集中にPHPStanの出力を表示できるようにすると便利です。  
+> エディタ画面で編集中にPHPStanの出力を表示できるようにすると便利です。  
 > **PhpStorm**、**VS Code**、**GNU Emacs**、**Vim**などでは拡張を有効化することで実現できます。
 
+上記のようにエディタ画面から透過的にPHPStanを実行することが理想がです、実行できない場合は端末から**CLI**で指定されている`./vendor/bin/phpstan analyze beginner/xxx.php`のようなコマンドを実行してください。
+
 [Composer]: https://getcomposer.org/
+
+## チュートリアル
+
+ 1. 🔰 [**PHPStan型付けチュートリアル 入門編**](beginner/README.md)
 
 ## Copyright
 
