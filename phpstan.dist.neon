@@ -1,0 +1,8 @@
+parameters:
+	level: max
+	phpVersion: 80401
+	paths:
+		- beginner/
+	tmpDir: .
+includes:
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
