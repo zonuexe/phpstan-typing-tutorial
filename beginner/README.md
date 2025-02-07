@@ -123,6 +123,7 @@ function search(string $word, string $order, int $page): array
 > 範囲コメントの `/* ... */` とは区別されるので十分に気をつけてください。
 >
 > エディタによってはPHPDocタグが色付けされるかによって区別できます。
+> ![Emacs PHP ModeでPHPDocタグが色付けされている画像](../pictures/highlighting-comments.png)
 
 続いて、外部からの入力を値として取得します。
 
