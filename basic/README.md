@@ -18,28 +18,28 @@
 
 class UsersBuilder
 {
-	public function buildUser(int $id, string $name, string $birthday): array
-	{
-		$result = [
-			'ID' => $id,
-			'Name' => $name,
-			'BirthDay' => new DateTimeImmutable($birthday),
-		];
+    public function buildUser(int $id, string $name, string $birthday): array
+    {
+        $result = [
+            'ID' => $id,
+            'Name' => $name,
+            'BirthDay' => new DateTimeImmutable($birthday),
+        ];
 
-		return $result;
-	}
+        return $result;
+    }
 
-	public function fetchUsers(): array
-	{
-		// 仮実装なので仮データを返す
-		$users = [];
-		$users[] = $this->buildUser(1, 'Miku', '2007-08-31');
-		$users[] = $this->buildUser(2, 'Rin', '2007-12-27');
-		$users[] = $this->buildUser(3, 'Len', '2007-12-27');
-		$users[] = $this->buildUser(4, 'Luka', '2009-01-30');
+    public function fetchUsers(): array
+    {
+        // 仮実装なので仮データを返す
+        $users = [];
+        $users[] = $this->buildUser(1, 'Miku', '2007-08-31');
+        $users[] = $this->buildUser(2, 'Rin', '2007-12-27');
+        $users[] = $this->buildUser(3, 'Len', '2007-12-27');
+        $users[] = $this->buildUser(4, 'Luka', '2009-01-30');
 
-		return $users;
-	}
+        return $users;
+    }
 }
 ```
 
@@ -69,24 +69,24 @@ PHPDocで配列に詳細な型を記述する方法は大きく分けて二つ�
 手始めに `buildUser()` メソッドに型をつけてみましょう。
 
 ```php
-	public function buildUser(int $id, string $name, string $birthday): array
-	{
-		$result = [
-			'ID' => $id,
-			'Name' => $name,
-			'BirthDay' => new DateTimeImmutable($birthday),
-		];
-		\PHPStan\dumpPhpDocType($result);
+    public function buildUser(int $id, string $name, string $birthday): array
+    {
+        $result = [
+            'ID' => $id,
+            'Name' => $name,
+            'BirthDay' => new DateTimeImmutable($birthday),
+        ];
+        \PHPStan\dumpPhpDocType($result);
         # Dumped type: array{ID: int, Name: string, BirthDay: DateTimeImmutable}
 
-		return $result;
-	}
+        return $result;
+    }
 ```
 
 型が出力されました。これをコピペしてPHPDocに貼り付けます。
 
 ```php
-	/**
+    /**
      * @return array{ID: int, Name: string, BirthDay: DateTimeImmutable}
      */
 ```
@@ -104,20 +104,20 @@ Dumped type: array{array{ID: int, Name: string, BirthDay: DateTimeImmutable}, ar
 整形すると以下のようになります。
 
 ```php
-	/**
-	 * @return array{
-	 *     0: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
-	 *     1: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
-	 *     2: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
-	 *     3: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
-	 * }
-	 */
+    /**
+     * @return array{
+     *     0: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
+     *     1: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
+     *     2: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
+     *     3: array{ID: int, Name: string, BirthDay: DateTimeImmutable},
+     * }
+     */
 ```
 
 これをコピペしてまたPHPDocに貼り付ける… でもいいのですが、コードにはこういうことが書いてあります
 
 ``` php
-		// 仮実装なので仮データを返す
+        // 仮実装なので仮データを返す
 ```
 
 ということは、本実装では何個になるかというのは、あまり具体的な意味はなさそうです。
@@ -134,18 +134,18 @@ Dumped type: array{array{ID: int, Name: string, BirthDay: DateTimeImmutable}, ar
 つまり、このように書けます。
 
 ```php
-	/**
-	 * @return array<array{ID: int, Name: string, BirthDay: DateTimeImmutable}>
-	 */
+    /**
+     * @return array<array{ID: int, Name: string, BirthDay: DateTimeImmutable}>
+     */
 ```
 この型は読みやすいように改行しても構いません。
 
 ```php
-	/**
-	 * @return array<array{
+    /**
+     * @return array<array{
      *   ID: int,
      *   Name: string,
      *   BirthDay: DateTimeImmutable,
      * }>
-	 */
+     */
 ```
