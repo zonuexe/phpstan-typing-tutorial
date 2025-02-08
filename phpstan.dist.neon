@@ -3,6 +3,7 @@ parameters:
 	phpVersion: 80401
 	paths:
 		- beginner/
+		- basic/
 	tmpDir: .
 includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon

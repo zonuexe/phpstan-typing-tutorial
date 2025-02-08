@@ -32,7 +32,8 @@
 
 ## チュートリアル
 
- 1. 🔰 [**PHPStan型付けチュートリアル 入門編**](beginner/README.md)
+ 1. 🌱 [**PHPStan型付けチュートリアル 入門編**](beginner/README.md)
+ 2. 🔰 [**PHPStan型付けチュートリアル 基礎編**](basic/README.md) ***(工事中)***
 
 ## Copyright
 
