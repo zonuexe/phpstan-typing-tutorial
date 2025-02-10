@@ -11,15 +11,21 @@ PHPStanを使った型付けをWebブラウザ上で体験できるチュート�
 
 ## 取り組み方
 
-### 🖥️ Webブラウザで取り組む
-
-チュートリアル本文にあるリンクからWeb上のPlaygroundにアクセスできます。
+チュートリアルには節見出しごとに、以下のようなブロックがあります。
 
 > [!NOTE]
 > この節のコードは以下で確認できます
 > * **PHPStan Playground**: `https://phpstan.org/...`
 > * **File**: `xxx.php`
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/xxx.php`
+
+### 🖥️ Webブラウザで取り組む
+
+チュートリアル本文にある **PHPStan Playground**: `https://phpstan.org/...` のリンクからWeb上のPlaygroundにアクセスできます。
+
+Webブラウザのウィンドウを分割し、記事本文とPHPStan Playgroundを並べて表示すると便利です。
+
+![](./pictures/splited-screen.png)
 
 ### ローカルで実行する
 
