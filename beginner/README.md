@@ -20,6 +20,7 @@ PHPStanは値についた型を `\PHPStan\dumpType()` 関数で出力できま�
 $a = 'foo';
 $b = 'bar';
 $c = $a . $b;
+// . は文字列を結合する演算子
 
 \PHPStan\dumpType($a);
 \PHPStan\dumpType($b);
@@ -54,8 +55,14 @@ $l = $n / $m;
 `rand() === 1` という条件が成り立つ確率は大雑把に「**21億分の1**」です。PHPStanは`rand() === 1`という確率的な処理は**行なっていません**。どちらでも僅かにでも可能性があるならば、PHPStanは**どちらの可能性もある**と判断して`2|5`という型をつけます。さらに`$l = $n / $m`という式はどうでしょうか。`$n`には`5`という型がついていますが、`$m`は`2`と`5`の可能性があるので、`$l = 5 / 2` (= `2.5`) と `$l = 5 / 5` (= `1`) という2パターンが考えられます。ここでPHPStanは`$l`に`1|2.5`という型をつけます。これはPHPStanが行なう型付けの特殊な例などではなく、***PHPStanが常に行なっていること***です。
 
 > [!CAUTION]
-> `\PHPStan\dumpType()` は静的解析時に用いられる擬似的な関数ですが、実行時に定義されません。  
+> `\PHPStan\dumpType()` は静的解析時に用いられる擬似的な関数ですが、実行時に定義されません。
+>
 > 実アプリケーションでは実行する前、あるいはユニットテスト実行前に取り除いてください。
+
+> [!TIP]
+> * PHPのコードは文末に`;`が必要です
+> * `.`演算子は文字列として結合します (`+`は常に数値の加算および配列マージを意味します)
+> * * `/` 演算子は数値の除算(割り算)の行います
 
 > [!IMPORTANT]
 > 🔜 **コードを好きに書き換えてみて、納得できたら次に進んでください**
@@ -81,6 +88,18 @@ function label($title)
 
 > [!TIP]
 > `\PHPStan\Testing\assertType(expected, actual)` は値が期待する型とPHPStanが認識している型の **文字列表現の一致** をチェックする関数です。`expected`と`actual`が同じ文字列なら何も出力されなくなります。
+>
+> ここでは使っていませんが、部分型関係を用いてチェックする `\PHPStan\Testing\assertSuperType(expected, actual)`もあります。
+
+> [!TIP]
+> 型宣言を含まない関数 `function f($arg1, $arg2) { ... }` は、どんな型の引数も受け入れ、どんな型の値を返すこともできます。
+>
+> * `function f(int $arg1, float $arg2) { ... }`
+>   * `()`内に`type $arg`と書くことで、パラメータの型を宣言します
+> * `function f($arg1, $arg2): int|float { ... }`
+>   * `()` の次に `: type` と書くことで、戻り値の型を宣言します
+>
+> パラメータと戻り値の型宣言は組み合わせることができます。
 
 PHPではパラメータ(仮引数リスト)や戻り値に型宣言を追加できます。関数やメソッドで型宣言された型は、実行時に**必ず保証**されます。
 
@@ -93,12 +112,12 @@ PHPではパラメータ(仮引数リスト)や戻り値に型宣言を追加で
 
 それぞれの箇所では、型宣言されたものが静的型付きであることが必ず保証されます。
 
-> [!IMPORTANT]
-> 🔜 **型を追加してエラーが出なくなったら次に進んでください**
-
 > [!TIP]
 > PHPの型宣言についてどのように振る舞うかチェックできます
 > * [php-playで確認する](https://php-play.dev/?c=DwfgDgFmAEAmCmBjANgQwE7wBQGcAu6AlongPp4CeY8OAvAIwCUA3AFCsBmArgHYmEB7HtDQAjeMlwFCPAObQAJHkJ5k8RgC5o%2BInNYBvVgEhMeLumEAiMRI36lKtQF9LbJ%2BwBuGUrC4BbMCwbSQByDgEBEMYWVi90H39A4KwmGKA&v=8.4&f=console)
+
+> [!IMPORTANT]
+> 🔜 **型を追加してエラーが出なくなったら次に進んでください**
 
 ## 3. 型を絞り込む
 
@@ -163,9 +182,10 @@ $books = search($word, $order, $page);
 // Parameter #3 $page of function search expects int<1, max>, int|false given.
 ```
 
- * [`filter_var()`](https://www.php.net/filter_var)
-   * 値をフィルタリングする関数です (名前に反して変数以外もフィルタできます)
-   * PHPStanは[検証フィルタ]とオプションによって型が変わります
+> [!TIP]
+> * [`filter_var()`](https://www.php.net/filter_var)
+>   * 値をフィルタリングする関数です (名前に反して変数以外もフィルタできます)
+>   * PHPStanは[検証フィルタ]とオプションによって型が変わります
 
 PHPStanは比較により**型を絞り込む**(type narrowing)ことができます。
 コードに以下のようなコードを追加して型を確認してみてください。
