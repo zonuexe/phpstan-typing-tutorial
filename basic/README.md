@@ -13,8 +13,14 @@
 > * **File**: [`1.php`](./1.php)
 > * **CLI**: `./vendor/bin/phpstan analyze basic/1.php`
 
+<!-- TODO: 1.php に use function を追加したので Playground のリンクを再生成する -->
+
 ```php file=1.php
 <?php declare(strict_types = 1);
+
+use function PHPStan\dumpPhpDocType;
+use function PHPStan\dumpType;
+use function PHPStan\Testing\assertType;
 
 class UsersBuilder
 {

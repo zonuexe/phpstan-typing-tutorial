@@ -16,7 +16,7 @@ PHPStanは値についた型を `\PHPStan\dumpType()` 関数で出力できま�
 > * **File**: [`1.php`](./1.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/1.php`
 
-<!-- TODO: 1.php に「型は追跡され、追跡できなくなると広がる」の例を追加したので Playground のリンクを再生成する -->
+<!-- TODO: 1.php に use function を追加したので Playground のリンクを再生成する -->
 
 ```php phpstan
 $a = 'foo';
@@ -28,6 +28,11 @@ $c = $a . $b;
 \PHPStan\dumpType($b);
 \PHPStan\dumpType($c);
 ```
+
+> [!TIP]
+> ファイルの先頭に `use function PHPStan\dumpType;` と書いておけば、単に `dumpType($a);` とも書けます。このチュートリアルの各ファイルにはこの`use function`を入れてあります。
+>
+> ただしデバッグ用途のために毎回関数を`use function`でインポートするのは面倒に感じられるかもしれません。本文中のコードでは「どこの関数か」が一目でわかるように、 `\PHPStan\dumpType($a);` のように名前空間から書く形で統一します。
 
 複数の値をまとめてチェックしたいときは[`compact()`]で配列にまとめることでわかりやすくなることもあります。
 
@@ -56,7 +61,28 @@ $l = $n / $m;
 
 `rand() === 1` という条件が成り立つ確率は大雑把に「**21億分の1**」です。PHPStanは`rand() === 1`という確率的な処理は**行なっていません**。どちらでも僅かにでも可能性があるならば、PHPStanは**どちらの可能性もある**と判断して`2|5`という型をつけます。さらに`$l = $n / $m`という式はどうでしょうか。`$n`には`5`という型がついていますが、`$m`は`2`と`5`の可能性があるので、`$l = 5 / 2` (= `2.5`) と `$l = 5 / 5` (= `1`) という2パターンが考えられます。ここでPHPStanは`$l`に`1|2.5`という型をつけます。これはPHPStanが行なう型付けの特殊な例などではなく、***PHPStanが常に行なっていること***です。
 
-### 型は追跡され、追跡できなくなると広がる
+> [!CAUTION]
+> `\PHPStan\dumpType()` は静的解析時に用いられる擬似的な関数ですが、実行時に定義されません。
+>
+> 実アプリケーションでは実行する前、あるいはユニットテスト実行前に取り除いてください。
+
+> [!TIP]
+> * PHPのコードは文末に`;`が必要です
+> * `.`演算子は文字列として結合します (`+`は常に数値の加算および配列マージを意味します)
+> * * `/` 演算子は数値の除算(割り算)を行います
+
+> [!IMPORTANT]
+> 🔜 **コードを好きに書き換えてみて、納得できたら次に進んでください**
+
+## 1.5. 型は追跡され、追跡できなくなると広がる
+
+> [!NOTE]
+> この節のコードは以下で確認できます
+> * **PHPStan Playground**: TODO
+> * **File**: [`1.5.php`](./1.5.php)
+> * **CLI**: `./vendor/bin/phpstan analyze beginner/1.5.php`
+
+<!-- TODO: 1.5.php の Playground リンクを発行する -->
 
 PHPStanはコードを実行しているわけではありませんが、**追跡できる限り**は値を追いかけます。
 
@@ -94,18 +120,8 @@ $r = rand();
 
 `int<0, max>`と`int<1, max>`はよく使うので、それぞれ`non-negative-int`、`positive-int`という別名でも書けます。次の節以降のエラーメッセージに`int<1, max>`が出てきたら「1以上の整数のことだな」と読み替えてください。
 
-> [!CAUTION]
-> `\PHPStan\dumpType()` は静的解析時に用いられる擬似的な関数ですが、実行時に定義されません。
->
-> 実アプリケーションでは実行する前、あるいはユニットテスト実行前に取り除いてください。
-
-> [!TIP]
-> * PHPのコードは文末に`;`が必要です
-> * `.`演算子は文字列として結合します (`+`は常に数値の加算および配列マージを意味します)
-> * * `/` 演算子は数値の除算(割り算)を行います
-
 > [!IMPORTANT]
-> 🔜 **コードを好きに書き換えてみて、納得できたら次に進んでください**
+> 🔜 **配列の要素数やループの回数を書き換えて、型がどう変わるか確かめられたら次に進んでください**
 
 ## 2. 型宣言で関数に型をつける
 
@@ -114,6 +130,8 @@ $r = rand();
 > * **PHPStan Playground**: <https://phpstan.org/r/f95fa83b-1216-46a1-9631-98a4736c5544>
 > * **File**: [`2.php`](./2.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/2.php`
+
+<!-- TODO: 2.php に use function を追加したので Playground のリンクを再生成する -->
 
 PHPの関数に型を付けてみましょう。
 
@@ -134,6 +152,8 @@ function label($title)
 > `\PHPStan\Testing\assertType(expected, actual)` は値が期待する型とPHPStanが認識している型の **文字列表現の一致** をチェックする関数です。`expected`と`actual`が同じ文字列なら何も出力されなくなります。
 >
 > ここでは使っていませんが、部分型関係を用いてチェックする `\PHPStan\Testing\assertSuperType(expected, actual)`もあります。
+>
+> `dumpType()`と同じく、`use function PHPStan\Testing\assertType;` を書いておけば `assertType('string', label('foo'));` とも書けます。
 
 ### エラーメッセージを読む
 
@@ -190,6 +210,8 @@ PHPではパラメータ(仮引数リスト)や戻り値に型宣言を追加で
 > * **PHPStan Playground**: <https://phpstan.org/r/aaa28500-8f05-4fff-b53c-97e1d74f708a>
 > * **File**: [`3.php`](./3.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/3.php`
+
+<!-- TODO: 3.php に use function を追加したので Playground のリンクを再生成する -->
 
 ユーザーがフォームから検索して、結果の書籍一覧を表示する画面を考えてみましょう。
 
@@ -421,8 +443,13 @@ if (!is_string($value)) {
 > * **File**: [`4.php`](./4.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/4.php`
 
+<!-- TODO: 4.php に use function を追加したので Playground のリンクを再生成する -->
+
 ```php file=4.php
 <?php declare(strict_types = 0);
+
+use function PHPStan\dumpType;
+use function PHPStan\Testing\assertType;
 
 /**
  * $s が数値文字列だったら int に変換して返す

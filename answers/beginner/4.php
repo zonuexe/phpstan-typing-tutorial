@@ -1,5 +1,8 @@
 <?php declare(strict_types = 1);
 
+use function PHPStan\dumpType;
+use function PHPStan\Testing\assertType;
+
 /**
  * $s が数値文字列だったら int に変換して返す
  *

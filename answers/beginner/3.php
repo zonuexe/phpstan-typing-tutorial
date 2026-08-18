@@ -1,5 +1,8 @@
 <?php declare(strict_types = 1);
 
+use function PHPStan\dumpType;
+use function PHPStan\Testing\assertType;
+
 final readonly class Author {
 	/**
 	 * @param non-empty-string $name
