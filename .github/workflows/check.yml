@@ -16,3 +16,4 @@ jobs:
           coverage: none
       - run: composer install --no-interaction --no-progress
       - run: composer check
+      - run: composer check-playground

@@ -12,6 +12,8 @@ composer check
  * `composer check-tools` — `tools/` 以下を PHPStan で解析します
  * `composer check-docs` — `tools/check-docs.php` で本文とPHPファイルの整合性を検査します
 
+ネットワークを使う `composer check-playground` (Playground リンクの検査) は `check` には含めていません。個別に実行してください (後述)。
+
 GitHub Actions でも同じ検査が走ります (`.github/workflows/check.yml`)。
 
 ## ディレクトリ構成
@@ -90,4 +92,15 @@ function label($title)
 
 ## Playground のリンク
 
-演習ファイルを変更したら、対応する節の **PHPStan Playground** のリンクを再生成してください。Playground のリンクは自動では検査できないので、更新が必要な箇所には `<!-- TODO: ... -->` を残しておきます。
+各節の NOTE ブロックにある **PHPStan Playground** のリンクは、`tools/playground.php` で検査・更新できます。
+
+```bash
+composer check-playground    # リンク先に保存されたコード・設定が演習ファイルと一致するか (読み取りのみ)
+composer update-playground   # 一致しない/TODO のリンクを新規発行して README を書き換える
+```
+
+`update` は Playground の **Share** ボタンと同じ API (`POST https://api.phpstan.org/analyse` に `saveResult: true`) を叩き、返ってきた ID で `https://phpstan.org/r/<id>` を README に書き込みます。NOTE ブロック直後に `<!-- TODO: ... Playground ... -->` があれば取り除きます。`--dry-run` を付けると発行せず対象だけ表示します。
+
+保存する設定はローカルの `phpstan.dist.neon` に合わせて `tools/playground.php` の先頭に定数で定義しています (Level 10, bleedingEdge オン, strictRules オフ)。設定を変えたら両方を揃えてください。
+
+演習ファイルを変更したら `composer update-playground` を実行し、README のリンク更新をコミットに含めてください。CI では `composer check-playground` が走り、リンク先とファイルの食い違いを検出します。
