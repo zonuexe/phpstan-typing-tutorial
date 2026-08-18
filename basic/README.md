@@ -13,11 +13,12 @@
 > * **File**: [`1.php`](./1.php)
 > * **CLI**: `./vendor/bin/phpstan analyze basic/1.php`
 
-``` php
+```php file=1.php
 <?php declare(strict_types = 1);
 
 class UsersBuilder
 {
+    // Error: Method UsersBuilder::buildUser() return type has no value type specified in iterable type array.
     public function buildUser(int $id, string $name, string $birthday): array
     {
         $result = [
@@ -29,6 +30,7 @@ class UsersBuilder
         return $result;
     }
 
+    // Error: Method UsersBuilder::fetchUsers() return type has no value type specified in iterable type array.
     public function fetchUsers(): array
     {
         // 仮実装なので仮データを返す
