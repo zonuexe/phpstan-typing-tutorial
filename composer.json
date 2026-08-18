@@ -8,5 +8,18 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "check": [
+            "@check-tools",
+            "@check-docs"
+        ],
+        "check-docs": "@php tools/check-docs.php",
+        "check-tools": "phpstan analyse --no-progress tools/"
+    },
+    "scripts-descriptions": {
+        "check": "Run all consistency checks (tools + docs)",
+        "check-docs": "Verify README code blocks against PHP files and actual PHPStan output",
+        "check-tools": "Analyse tools/ with PHPStan"
     }
 }

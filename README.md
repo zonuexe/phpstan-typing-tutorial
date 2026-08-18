@@ -54,6 +54,14 @@ Webブラウザのウィンドウを分割し、記事本文とPHPStan Playgroun
 
 どうしても実行できない場合は端末から**CLI**で指定されている`./vendor/bin/phpstan analyze beginner/xxx.php`のようなコマンドを実行してください。
 
+### 解答例
+
+演習の解答例は [`answers/`](./answers/) にあります (例: `beginner/2.php` の解答例は [`answers/beginner/2.php`](./answers/beginner/2.php))。まずは自分で書いてみて、詰まったときに参照してください。
+
+## 貢献するには
+
+本文と演習ファイルの整合性は `composer check` で検査しています。書き方の詳細は [CONTRIBUTING.md](./CONTRIBUTING.md) を参照してください。
+
 ## Copyright
 
 この文書は[GNU自由文書ライセンス]により自由に利用できます。
