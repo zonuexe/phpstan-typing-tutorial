@@ -8,5 +8,22 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "check": [
+            "@check-tools",
+            "@check-docs"
+        ],
+        "check-docs": "@php tools/check-docs.php",
+        "check-tools": "phpstan analyse --no-progress tools/",
+        "check-playground": "@php tools/playground.php check",
+        "update-playground": "@php tools/playground.php update"
+    },
+    "scripts-descriptions": {
+        "check": "Run all consistency checks (tools + docs)",
+        "check-docs": "Verify README code blocks against PHP files and actual PHPStan output",
+        "check-tools": "Analyse tools/ with PHPStan",
+        "check-playground": "Verify that PHPStan Playground links in README match the PHP files (network)",
+        "update-playground": "Publish stale/missing PHPStan Playground samples and rewrite README links (network)"
     }
 }

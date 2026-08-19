@@ -3,7 +3,7 @@
 use function PHPStan\dumpType;
 use function PHPStan\Testing\assertType;
 
-function label($title)
+function label(string $title): string
 {
 	return "label:{$title}";
 }

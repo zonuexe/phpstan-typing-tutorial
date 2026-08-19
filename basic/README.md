@@ -9,15 +9,20 @@
 
 > [!NOTE]
 > この節のコードは以下で確認できます
-> * **PHPStan Playground**: <https://phpstan.org/r/99e38017-017c-4ca0-9a41-48750b676c8a>
+> * **PHPStan Playground**: <https://phpstan.org/r/b50f2044-ebc6-48a7-ab73-a2423d2c1883>
 > * **File**: [`1.php`](./1.php)
 > * **CLI**: `./vendor/bin/phpstan analyze basic/1.php`
 
-``` php
+```php file=1.php
 <?php declare(strict_types = 1);
+
+use function PHPStan\dumpPhpDocType;
+use function PHPStan\dumpType;
+use function PHPStan\Testing\assertType;
 
 class UsersBuilder
 {
+    // Error: Method UsersBuilder::buildUser() return type has no value type specified in iterable type array.
     public function buildUser(int $id, string $name, string $birthday): array
     {
         $result = [
@@ -29,6 +34,7 @@ class UsersBuilder
         return $result;
     }
 
+    // Error: Method UsersBuilder::fetchUsers() return type has no value type specified in iterable type array.
     public function fetchUsers(): array
     {
         // 仮実装なので仮データを返す

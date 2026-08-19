@@ -6,6 +6,9 @@ use function PHPStan\Testing\assertType;
 
 class UsersBuilder
 {
+	/**
+	 * @return array{ID: int, Name: string, BirthDay: DateTimeImmutable}
+	 */
 	public function buildUser(int $id, string $name, string $birthday): array
 	{
 		$result = [
@@ -17,6 +20,13 @@ class UsersBuilder
 		return $result;
 	}
 
+	/**
+	 * @return array<array{
+	 *   ID: int,
+	 *   Name: string,
+	 *   BirthDay: DateTimeImmutable,
+	 * }>
+	 */
 	public function fetchUsers(): array
 	{
 		// 仮実装なので仮データを返す
