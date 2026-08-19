@@ -12,11 +12,9 @@ PHPStanは値についた型を `\PHPStan\dumpType()` 関数で出力できま�
 
 > [!NOTE]
 > この節のコードは以下で確認できます
-> * **PHPStan Playground**: <https://phpstan.org/r/a11064d0-10e1-4bb6-890f-3870ad2be84c>
+> * **PHPStan Playground**: <https://phpstan.org/r/406869ab-5fbf-499c-ac3d-abed81f70984>
 > * **File**: [`1.php`](./1.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/1.php`
-
-<!-- TODO: 1.php に use function を追加したので Playground のリンクを再生成する -->
 
 ```php phpstan
 $a = 'foo';
@@ -78,11 +76,9 @@ $l = $n / $m;
 
 > [!NOTE]
 > この節のコードは以下で確認できます
-> * **PHPStan Playground**: TODO
+> * **PHPStan Playground**: <https://phpstan.org/r/da060726-c164-4678-927d-a52a817e8c7b>
 > * **File**: [`1.5.php`](./1.5.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/1.5.php`
-
-<!-- TODO: 1.5.php の Playground リンクを発行する -->
 
 PHPStanはコードを実行しているわけではありませんが、**追跡できる限り**は値を追いかけます。
 
@@ -127,11 +123,9 @@ $r = rand();
 
 > [!NOTE]
 > この節のコードは以下で確認できます
-> * **PHPStan Playground**: <https://phpstan.org/r/f95fa83b-1216-46a1-9631-98a4736c5544>
+> * **PHPStan Playground**: <https://phpstan.org/r/9e443fbb-9e57-4965-9133-817c81db569f>
 > * **File**: [`2.php`](./2.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/2.php`
-
-<!-- TODO: 2.php に use function を追加したので Playground のリンクを再生成する -->
 
 PHPの関数に型を付けてみましょう。
 
@@ -207,11 +201,9 @@ PHPではパラメータ(仮引数リスト)や戻り値に型宣言を追加で
 
 > [!NOTE]
 > この節のコードは以下で確認できます
-> * **PHPStan Playground**: <https://phpstan.org/r/aaa28500-8f05-4fff-b53c-97e1d74f708a>
+> * **PHPStan Playground**: <https://phpstan.org/r/81f2a539-d168-45e4-aca1-330aece74b9f>
 > * **File**: [`3.php`](./3.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/3.php`
-
-<!-- TODO: 3.php に use function を追加したので Playground のリンクを再生成する -->
 
 ユーザーがフォームから検索して、結果の書籍一覧を表示する画面を考えてみましょう。
 
@@ -439,11 +431,9 @@ if (!is_string($value)) {
 
 > [!NOTE]
 > この節のコードは以下で確認できます
-> * **PHPStan Playground**: <https://phpstan.org/r/af94aa2f-0cb7-4ed3-99de-34fe92eeeba5>
+> * **PHPStan Playground**: <https://phpstan.org/r/ba3227e6-ebec-49f9-ad06-3d338cdce9f7>
 > * **File**: [`4.php`](./4.php)
 > * **CLI**: `./vendor/bin/phpstan analyze beginner/4.php`
-
-<!-- TODO: 4.php に use function を追加したので Playground のリンクを再生成する -->
 
 ```php file=4.php
 <?php declare(strict_types = 0);

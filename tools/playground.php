@@ -110,8 +110,9 @@ function processReadme(string $root, string $target, string $mode, bool $dryRun)
 	$failed = 0;
 	$changed = false;
 
-	foreach ($lines as $i => $line) {
-		if (preg_match(PLAYGROUND_LINE, $line, $m) !== 1) {
+	// 途中で行を削除するため、コピーを走査する foreach ではなく生の配列を添字で走査する
+	for ($i = 0; $i < count($lines); $i++) {
+		if (preg_match(PLAYGROUND_LINE, $lines[$i], $m) !== 1) {
 			continue;
 		}
 		$fileLine = $lines[$i + 1] ?? '';
@@ -250,21 +251,26 @@ function request(string $method, string $path, ?array $body = null): array
 	}
 	$options['header'] = implode("\r\n", $headers);
 	$context = stream_context_create(['http' => $options]);
-	$response = @file_get_contents(API_BASE . $path, false, $context);
-	if ($response === false) {
+	$stream = @fopen(API_BASE . $path, 'r', false, $context);
+	if ($stream === false) {
 		throw new RuntimeException("request failed: {$method} {$path}");
 	}
+	$response = stream_get_contents($stream);
+	// $http_response_header は PHP 8.5 で非推奨のため、ストリームのメタデータからステータスを取る
+	$meta = stream_get_meta_data($stream);
+	fclose($stream);
+
 	$status = 0;
-	/** @var list<string> $http_response_header */
-	foreach ($http_response_header as $header) {
-		if (preg_match('~^HTTP/\S+\s+(\d{3})~', $header, $s) === 1) {
+	$wrapperData = $meta['wrapper_data'] ?? [];
+	foreach (is_array($wrapperData) ? $wrapperData : [] as $header) {
+		if (is_string($header) && preg_match('~^HTTP/\S+\s+(\d{3})~', $header, $s) === 1) {
 			$status = (int) $s[1];
 		}
 	}
 	if ($status < 200 || $status >= 300) {
 		throw new RuntimeException("HTTP {$status}: {$method} {$path}");
 	}
-	$json = json_decode($response, true);
+	$json = json_decode($response === false ? '' : $response, true);
 	if (!is_array($json)) {
 		throw new RuntimeException("invalid JSON from {$method} {$path}");
 	}

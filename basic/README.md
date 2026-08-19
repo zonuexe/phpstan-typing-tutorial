@@ -9,11 +9,9 @@
 
 > [!NOTE]
 > この節のコードは以下で確認できます
-> * **PHPStan Playground**: <https://phpstan.org/r/99e38017-017c-4ca0-9a41-48750b676c8a>
+> * **PHPStan Playground**: <https://phpstan.org/r/b50f2044-ebc6-48a7-ab73-a2423d2c1883>
 > * **File**: [`1.php`](./1.php)
 > * **CLI**: `./vendor/bin/phpstan analyze basic/1.php`
-
-<!-- TODO: 1.php に use function を追加したので Playground のリンクを再生成する -->
 
 ```php file=1.php
 <?php declare(strict_types = 1);
